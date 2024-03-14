@@ -1,0 +1,102 @@
+<WEBIN>
+    <SUBMISSION_SET>
+        <SUBMISSION>
+            <ACTIONS>
+                <ACTION>
+                    <ADD/>
+                </ACTION>
+                <ACTION>
+                    <HOLD HoldUntilDate="2025-01-12"/>
+                </ACTION>
+            </ACTIONS>
+        </SUBMISSION>
+    </SUBMISSION_SET>
+    <PROJECT_SET>
+        <PROJECT alias="comparative-analysis">
+        <NAME>Human Gut Microbiota Study</NAME>
+        <TITLE>Exploration of the diversity human gastric microbiota</TITLE>
+        <DESCRIPTION>The genome sequences of gut microbes were obtained using... </DESCRIPTION>
+        <SUBMISSION_PROJECT>
+            <SEQUENCING_PROJECT/>
+        </SUBMISSION_PROJECT>
+        <PROJECT_LINKS>
+            <PROJECT_LINK>
+                <XREF_LINK>
+                    <DB>PUBMED</DB>
+                    <ID>25035323</ID>
+                </XREF_LINK>
+            </PROJECT_LINK>
+        </PROJECT_LINKS>
+        </PROJECT>
+    </PROJECT_SET>
+    <SAMPLE_SET>
+        <SAMPLE alias="stomach_microbiota" center_name="">
+        <TITLE>human gastric microbiota, mucosal</TITLE>
+        <SAMPLE_NAME>
+            <TAXON_ID>1284369</TAXON_ID>
+            <SCIENTIFIC_NAME>stomach metagenome</SCIENTIFIC_NAME>
+            <COMMON_NAME></COMMON_NAME>
+        </SAMPLE_NAME>
+        <SAMPLE_ATTRIBUTES>
+            <SAMPLE_ATTRIBUTE>
+              <TAG>investigation type</TAG>
+              <VALUE>mimarks-survey</VALUE>
+            </SAMPLE_ATTRIBUTE>
+            <SAMPLE_ATTRIBUTE>
+              <TAG>sequencing method</TAG>
+              <VALUE>pyrosequencing</VALUE>
+            </SAMPLE_ATTRIBUTE>
+            <SAMPLE_ATTRIBUTE>
+              <TAG>collection date</TAG>
+              <VALUE>2010</VALUE>
+            </SAMPLE_ATTRIBUTE>
+            <SAMPLE_ATTRIBUTE>
+              <TAG>host body site</TAG>
+              <VALUE>Mucosa of stomach</VALUE>
+            </SAMPLE_ATTRIBUTE>
+            <SAMPLE_ATTRIBUTE>
+              <TAG>human-associated environmental package</TAG>
+              <VALUE>human-associated</VALUE>
+            </SAMPLE_ATTRIBUTE>
+            <SAMPLE_ATTRIBUTE>
+              <TAG>geographic location (latitude)</TAG>
+              <VALUE>1.81</VALUE>
+              <UNITS>DD</UNITS>
+            </SAMPLE_ATTRIBUTE>
+            <SAMPLE_ATTRIBUTE>
+              <TAG>geographic location (longitude)</TAG>
+              <VALUE>-78.76</VALUE>
+              <UNITS>DD</UNITS>
+            </SAMPLE_ATTRIBUTE>
+            <SAMPLE_ATTRIBUTE>
+              <TAG>geographic location (country and/or sea)</TAG>
+              <VALUE>Colombia</VALUE>
+            </SAMPLE_ATTRIBUTE>
+            <SAMPLE_ATTRIBUTE>
+              <TAG>geographic location (region and locality)</TAG>
+              <VALUE>Tumaco</VALUE>
+            </SAMPLE_ATTRIBUTE>
+            <SAMPLE_ATTRIBUTE>
+              <TAG>environment (biome)</TAG>
+              <VALUE>coast</VALUE>
+            </SAMPLE_ATTRIBUTE>
+            <SAMPLE_ATTRIBUTE>
+              <TAG>environment (feature)</TAG>
+              <VALUE>human-associated habitat</VALUE>
+            </SAMPLE_ATTRIBUTE>
+            <SAMPLE_ATTRIBUTE>
+              <TAG>project name</TAG>
+              <VALUE>Human microbiota</VALUE>
+            </SAMPLE_ATTRIBUTE>
+            <SAMPLE_ATTRIBUTE>
+              <TAG>environment (material)</TAG>
+              <VALUE>gastric biopsy</VALUE>
+            </SAMPLE_ATTRIBUTE>
+            <SAMPLE_ATTRIBUTE>
+              <TAG>ENA-CHECKLIST</TAG>
+              <VALUE>ERC000014</VALUE>
+            </SAMPLE_ATTRIBUTE>
+        </SAMPLE_ATTRIBUTES>
+        </SAMPLE>
+    </SAMPLE_SET>
+</WEBIN>
