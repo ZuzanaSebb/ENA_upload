@@ -18,7 +18,6 @@ file_path = 'test.xml'
 with open(file_path, 'rb') as file:
     file_content = file.read()
 
-print('Huuuu')
 
 # Make the request
 response = requests.post(url, headers=headers, auth=(username, password), data=file_content)
