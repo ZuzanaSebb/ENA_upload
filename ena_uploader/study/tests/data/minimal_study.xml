@@ -1,0 +1,8 @@
+<PROJECT_SET>
+    <PROJECT alias="ex_study">
+        <TITLE>Infant gut microbiom</TITLE>
+        <SUBMISSION_PROJECT>
+            <SEQUENCING_PROJECT></SEQUENCING_PROJECT>
+         </SUBMISSION_PROJECT>
+    </PROJECT>
+</PROJECT_SET>

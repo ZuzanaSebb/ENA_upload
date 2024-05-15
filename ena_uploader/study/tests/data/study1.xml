@@ -1,0 +1,14 @@
+<PROJECT_SET>
+    <PROJECT alias="ex_study" center_name = 'ex_study_center_name'>
+        <NAME>ex_study_name</NAME>
+        <TITLE>Infant gut microbiom</TITLE>
+        <DESCRIPTION>Human gut microbiome sequences from infants</DESCRIPTION>
+        <COLLABORATORS>
+            <COLLABORATOR>Jana K.</COLLABORATOR>
+            <COLLABORATOR>Anna K.</COLLABORATOR>
+        </COLLABORATORS>
+        <SUBMISSION_PROJECT>
+            <SEQUENCING_PROJECT></SEQUENCING_PROJECT>
+         </SUBMISSION_PROJECT>
+    </PROJECT>
+</PROJECT_SET>
