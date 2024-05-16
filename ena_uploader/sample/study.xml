@@ -1,0 +1,68 @@
+<PROJECT_SET>
+    <PROJECT alias="ex_study2" center_name="ex_study_center_name">
+    <NAME>ex_study_name</NAME>
+    <TITLE>Infant gut microbiom</TITLE>
+    <DESCRIPTION>Infant gut microbiome</DESCRIPTION>
+    <COLLABORATORS>
+        <COLLABORATOR>
+            Jana P.
+        </COLLABORATOR>
+        <COLLABORATOR>
+            Anna K.
+        </COLLABORATOR>
+    </COLLABORATORS>
+    <SUBMISSION_PROJECT>
+        <SEQUENCING_PROJECT/>
+        <ORGANISM>
+            <TAXON_ID>408170</TAXON_ID>
+            <SCIENTIFIC_NAME>human gut metagenome</SCIENTIFIC_NAME>
+        </ORGANISM>
+    </SUBMISSION_PROJECT>
+    <RELATED_PROJECTS>
+        <RELATED_PROJECT>
+          <PEER_PROJECT accession="PRJNA746322"/>
+        </RELATED_PROJECT>
+        <RELATED_PROJECT>
+            <CHILD_PROJECT accession="PRJNA746324"/>
+          </RELATED_PROJECT>
+          <RELATED_PROJECT>
+            <CHILD_PROJECT accession="PRJNA746321"/>
+          </RELATED_PROJECT>
+          <RELATED_PROJECT>
+            <PARENT_PROJECT accession="PRJNA746322"/>
+          </RELATED_PROJECT>
+    </RELATED_PROJECTS>
+    <PROJECT_LINKS>
+        <PROJECT_LINK>
+            <XREF_LINK>
+            <DB>ENA-FASTQ-FILES</DB>
+            <ID>
+            <![CDATA[ https://www.ebi.ac.uk/ena/portal/api/filereport?accession=PRJNA789149]]>
+            </ID>
+            </XREF_LINK>
+        </PROJECT_LINK>
+        <PROJECT_LINK>
+            <URL_LINK>
+            <LABEL>URL_link</LABEL>
+            <URL>
+             https://www.ebi.ac.uk/ena/browser/view/PRJNA309479
+            </URL>
+            </URL_LINK>
+        </PROJECT_LINK>
+    </PROJECT_LINKS>
+    <PROJECT_ATTRIBUTES>
+        <PROJECT_ATTRIBUTE>
+            <TAG>ENA-REFSEQ</TAG>
+            <VALUE>N</VALUE>
+        </PROJECT_ATTRIBUTE>   
+        <PROJECT_ATTRIBUTE>
+            <TAG>NCBI-PROJECT-TYPE</TAG>
+            <VALUE>SUBMISSION</VALUE>
+        </PROJECT_ATTRIBUTE>
+        <PROJECT_ATTRIBUTE>
+            <TAG>ENA-FIRST-PUBLIC</TAG>
+            <VALUE>2013-06-30</VALUE>
+        </PROJECT_ATTRIBUTE>
+    </PROJECT_ATTRIBUTES>
+    </PROJECT>
+</PROJECT_SET>

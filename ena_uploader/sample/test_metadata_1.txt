@@ -1,0 +1,4 @@
+taxon_id	alias	sample-id   	barcode-sequence	body-site	year	month	day	subject	reported-antibiotic-usage	days-since-experiment-start	geo location	collection date
+12	ha	L1S8	AGCTGACTAGTC	gut	2008	10	28	subject-1	Yes	0	Brazil	12.03.2023
+13	hi	L1S57	ACACACTATGGC	gut	2009	1	20	subject-1	No	84	Brazil	12.03.2023
+14	hu	L1S76	ACTACGTGTGGT	gut	2009	2	17	subject-1	No	112	Brazil	12.03.2023
