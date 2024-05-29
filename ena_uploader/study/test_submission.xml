@@ -1,8 +1,0 @@
-<PROJECT_SET>
-    <PROJECT alias="iranensis_wgs">
-       <TITLE>Whole-genome sequencing of Streptomyces iranensis</TITLE>
-       <SUBMISSION_PROJECT>
-         <SEQUENCING_PROJECT/>
-      </SUBMISSION_PROJECT>
-    </PROJECT>
- </PROJECT_SET>
