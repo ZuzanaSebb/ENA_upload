@@ -1,3 +1,4 @@
+import importlib
 from qiime2.plugin import Plugin
 from qiime2.plugin import Str
 from q2_types.ordination import PCoAResults
@@ -5,7 +6,6 @@ from ena_uploader.types._types_and_formats import (
     ENAMetadataSamplesFormat, ENAMetadataSamplesDirFmt,ENAMetadataSamples,
     ENAMetadataStudyFormat, ENAMetadataStudyDirFmt, ENAMetadataStudy
 )
-
 
 plugin = Plugin(
     name='ena_uploader',
@@ -37,3 +37,4 @@ plugin.register_artifact_class(ENAMetadataSamples,
 
 )
 
+importlib.import_module('ena_uploader.types._transformer')

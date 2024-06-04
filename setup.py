@@ -11,5 +11,8 @@ setup(
     entry_points={
         'qiime2.plugins': ['ena_uploader=ena_uploader.plugin_setup:plugin']
     },
+    package_data={
+        'ena_uploader.types.tests': ['data/*', 'data/*/*'],
+    },
     zip_safe=False,
 )
