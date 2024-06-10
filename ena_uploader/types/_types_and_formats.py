@@ -1,8 +1,13 @@
+from xml.etree import ElementTree
 from qiime2.plugin import SemanticType, TextFileFormat, model, ValidationError
+from ena_uploader.sample import _sampleSetFromListOfDicts
+from ena_uploader.study import _studyFromRawDict
 import pandas as pd 
+import csv
 
 ENAMetadataSamples = SemanticType('ENAMetadataSamples')
 ENAMetadataStudy = SemanticType('ENAMetadataStudy')
+ENASubmissionReceipt = SemanticType('ENASubmissionReceipt')
 
 
 class ENAMetadataSamplesFormat(model.TextFileFormat):
@@ -35,11 +40,20 @@ class ENAMetadataSamplesFormat(model.TextFileFormat):
     def _validate_(self, level):
         self._validate()
 
+    def toXml(self):
+        with open(str(self), 'r') as f:
+            dicts = [d for d in csv.DictReader(f, delimiter='\t')]
+            elementTree = _sampleSetFromListOfDicts(dicts).to_xml_element()
+            return ElementTree.tostring(elementTree.getroot(), encoding='utf8')
+
 
 ENAMetadataSamplesDirFmt = model.SingleFileDirectoryFormat(
-        'ENAMetadataSamplesDirFmt', 'ena_metadata_samples.tsv', ENAMetadataSamples
+        'ENAMetadataSamplesDirFmt', 'ena_metadata_samples.tsv', ENAMetadataSamplesFormat
 
 )
+
+def is_valid_value(x):
+    return not pd.isnull(x) and len(str(x).strip()) > 0
 
 class ENAMetadataStudyFormat(model.TextFileFormat):
     """"
@@ -47,18 +61,30 @@ class ENAMetadataStudyFormat(model.TextFileFormat):
     including compulsary attributes such as alias and title,
     along with various other optional attributes for the study submission.
     """
+    REQUIRED_ATTRIBUTES = ['alias','title']
 
     def _validate(self):
         df_dict = pd.read_csv(str(self), header= None, index_col=0, sep='\t').squeeze("columns").to_dict() 
-        if 'alias' not in df_dict.keys():
+        print(df_dict)
+        missing_keys = [x for x in self.REQUIRED_ATTRIBUTES if x not in df_dict.keys()]
+        if missing_keys:
             raise ValidationError(
-                "Study alias must have a value for a study submission."
-            )
+                "Some required study attributes are missing from the metadata upload file: "
+                f'{",".join(missing_keys)}.'
+                )
+        missing_values = [y for y  in self.REQUIRED_ATTRIBUTES if not is_valid_value(df_dict[y]) ]
+        if len(missing_values) > 0:
+            raise ValidationError(
+                "The study is missing values in the following fields: "
+                f'{",".join(missing_values)}.'
+                )
     
-        if 'title' not in df_dict.keys():
-            raise ValidationError(
-                "Study title must have a value for a study submission."
-            )
+    def toXml(self):
+        df_dict = pd.read_csv(str(self), header= None, index_col=0, sep='\t').squeeze("columns").to_dict() 
+        elementTree = _studyFromRawDict(df_dict).to_xml_element()
+        return ElementTree.tostring(elementTree.getroot(), encoding='utf8')
+
+        
     def _validate_(self,level):
         self._validate()
 
@@ -66,4 +92,17 @@ ENAMetadataStudyDirFmt = model.SingleFileDirectoryFormat(
     'ENAMetadataStudyDirFmt','ena_metadata_study.tsv',ENAMetadataStudyFormat
 )
 
-        
+class ENASubmissionReceiptFormat(model.TextFileFormat):
+    """
+    This class provides a structured format to handle and inspect the receipt details
+    following a data upload to the ENA.
+    The success attribute indicates whether the submission was successful. 
+    The receipt also contains the accession numbers of the submitted objects.
+    """
+
+    def _validate_(self,level):
+        pass
+
+ENASubmissionReceiptDirFmt = model.SingleFileDirectoryFormat(
+    'ENASubmissionReceiptDirFmt','ena_submission_receipt.xml',ENASubmissionReceiptFormat
+)

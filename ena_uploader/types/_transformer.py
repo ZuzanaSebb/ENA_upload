@@ -1,5 +1,5 @@
 import pandas as pd 
-from ._types_and_formats import ENAMetadataSamplesFormat, ENAMetadataStudyFormat
+from ._types_and_formats import ENAMetadataSamplesFormat, ENAMetadataStudyFormat, ENASubmissionReceiptFormat
 from ..plugin_setup import plugin
 import qiime2
 
@@ -26,3 +26,10 @@ def _2(ff: ENAMetadataSamplesFormat) -> (pd.DataFrame):
 @plugin.register_transformer
 def _3(ff: ENAMetadataSamplesFormat) ->  (qiime2.Metadata):
     return  _meta_fmt_to_metadata(ff)  
+
+@plugin.register_transformer
+def _4(data: str) ->  (ENASubmissionReceiptFormat):
+    ff = ENASubmissionReceiptFormat()
+    with ff.open() as fh:
+        fh.write(data)
+    return ff

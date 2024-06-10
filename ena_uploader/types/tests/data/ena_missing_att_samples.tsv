@@ -1,0 +1,3 @@
+description	xref_link_1	xref_link_2	url_link_1	sample-id	barcode-sequence	body-site	year	month	day	subject	reported-antibiotic-usage	days-since-experiment-start	geographic location (country and/or sea)	collection date
+desc	id1|ENA	id1|database1	link1|www.link1.com	L1S8	AGCTGACTAGTC	gut	2008	10	28	subject-1	Yes	0	Spain	2023-01-01
+desc	id2|SRA	id2|database2	link2|www.link2.com	L1S57	ACACACTATGGC	gut	2009	1	20	subject-1	No	84	Spain	2023-01-01

@@ -6,7 +6,8 @@ from qiime2.plugin.testing import TestPluginBase
 
 from ena_uploader.types import (
     ENAMetadataSamples, ENAMetadataSamplesFormat, ENAMetadataStudy,ENAMetadataStudyFormat,
-    ENAMetadataSamplesDirFmt,ENAMetadataStudyDirFmt
+    ENAMetadataSamplesDirFmt,ENAMetadataStudyDirFmt,
+    ENASubmissionReceipt,ENASubmissionReceiptDirFmt,ENASubmissionReceiptFormat
 )
 
 class TestTypes(TestPluginBase):
@@ -25,6 +26,13 @@ class TestTypes(TestPluginBase):
     def test_ena_metadata_study_to_format_registration(self):
         self.assertSemanticTypeRegisteredToFormat(
             ENAMetadataStudy,ENAMetadataStudyDirFmt
+        )
+    def test_ena_submission_receipt_semantic_type_registration(self):
+        self.assertRegisteredSemanticType(ENASubmissionReceipt)
+
+    def test_ena_submission_receipt_to_format_registration(self):
+        self.assertSemanticTypeRegisteredToFormat(
+            ENASubmissionReceipt,ENASubmissionReceiptDirFmt
         )
 class TestFormats(TestPluginBase):
     package = 'ena_uploader.types.tests'
@@ -55,11 +63,32 @@ class TestFormats(TestPluginBase):
         ):
             format.validate()
 
-
     def test_ena_metadata_study_fmt(self):
         meta_path = self.get_data_path('ena_metadata_study.tsv')
         format = ENAMetadataStudyFormat(meta_path, mode='r')
         format.validate()
+    
+    def test_ena_study_missing_attributes(self):
+      meta_path = self.get_data_path('ena_study_missing_att.tsv')
+      format = ENAMetadataStudyFormat(meta_path,mode='r')
+      with self.assertRaisesRegex(
+          ValidationError,
+          'Some required study attributes are missing from the metadata upload file: '
+          'alias,title.'
+      ):
+           format.validate()
+    
+    def test_ena_study_missing_values(self):
+        meta_path = self.get_data_path('ena_study_missing_values.tsv')
+        format = ENAMetadataStudyFormat(meta_path,mode='r')
+        with self.assertRaisesRegex(
+            ValidationError,
+            "The study is missing values in the following fields: "
+            'alias,title.'
+        ):
+           format.validate()
+    
+
 
 
 class  TestTransformers(TestPluginBase):
