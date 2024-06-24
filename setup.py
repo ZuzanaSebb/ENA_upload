@@ -1,8 +1,10 @@
 from setuptools import setup, find_packages
+import versioneer
 
 setup(
     name="ena_uploader",
-    version='0.1',
+    version=versioneer.get_version(),
+    cmdclass=versioneer.get_cmdclass(),
     packages=find_packages(),
     author="Zuzana Sebechlebska",
     author_email="zuzanasebechlebska@gmail.com",

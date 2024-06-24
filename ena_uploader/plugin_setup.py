@@ -26,9 +26,6 @@ plugin.register_formats(
     ENAMetadataSamplesDirFmt,ENAMetadataStudyDirFmt,
     ENASubmissionReceiptFormat,ENASubmissionReceiptDirFmt)
 
-#plugin.register_semantic_type_to_format(
-#    ENAMetadataStudy, director_format=ENAMetadataStudyDirFmt
-#)
 
 plugin.register_artifact_class(ENAMetadataStudy,
                                ENAMetadataStudyDirFmt,
@@ -53,8 +50,6 @@ plugin.methods.register_function(
             'samples': ENAMetadataSamples,
             },
     parameters={
-            'username': Str,
-            'password': Str,
             'submission_hold_date': Str,
             'dev' : Bool
             },
@@ -66,8 +61,6 @@ plugin.methods.register_function(
             },
     parameter_descriptions={
         'submission_hold_date':"TBD",
-        'username': ('ENA Webin username.'),
-        'password': ('ENA Webin user password.'),
         'dev' : ('False by default, true in case of submission to ENA dev server.')
     },
     output_descriptions={

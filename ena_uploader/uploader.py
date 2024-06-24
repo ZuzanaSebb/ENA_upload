@@ -35,17 +35,19 @@ def _create_submission_xml(action: ActionType, hold_date: str) -> str:
 
 def uploadToEna(study: ENAMetadataStudyFormat, 
                 samples: ENAMetadataSamplesFormat,
-                username: str = None,
-                password: str = None,
+                #username: str = None,
+                #password: str = None,
                 submission_hold_date: str = '',
                 dev: bool = True
-                ) -> str:
-    if username is None and 'ENA_USERNAME' in os.environ:
-        username = os.environ['ENA_USERNAME']
-    if password is None and 'ENA_PASSWORD' in os.environ:
-        password = os.environ['ENA_PASSWORD']
+                ) -> bytes:
+    username = os.getenv('ENA_USERNAME')
+    password = os.getenv('ENA_PASSWORD')
 
-    print('username = {} password = {}', username, password)
+    if username is None or password is None:
+        raise RuntimeError('Missing username or password, ' +
+                           'make sure ENA_USERNAME and ENA_PASSWORD env vars are set')
+
+    print('username = {} password = {}'.format(username, password))
 
     '''
     Function to sumbmit metedata of the study and samples to ENA.
@@ -66,8 +68,8 @@ def uploadToEna(study: ENAMetadataStudyFormat,
             True by default. Indicates whether the data submission goes to the development server. If False, the submission 
                 goes to the production server. 
     Returns:
-        submission_receipt : 
-                Qiime artifact containing an XML response of the submission receipt.
+        submission_receipt : bytes
+                Qiime artifact containing an XML response of  ENA server.
     '''
 
     url = DEV_SERVER_URL if dev else PRODUCTION_SERVER_URL
@@ -89,7 +91,7 @@ def uploadToEna(study: ENAMetadataStudyFormat,
 
     response = requests.post(url, auth=(username, password), files=files)
 
-    with open('response.xml', 'w') as f:
-        f.write(str(response.content))
+    with open('response.xml', 'wb') as f:
+        f.write(response.content)
     
-    return str(response.content)
+    return response.content

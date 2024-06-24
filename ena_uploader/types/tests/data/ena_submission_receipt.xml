@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="receipt.xsl"?>
+<RECEIPT receiptDate="2024-06-19T22:21:02.547+01:00" submissionFile="submission.xml" success="false">
+     <PROJECT alias="ex_study" status="PRIVATE" holdUntilDate="2026-06-19+01:00"/>
+     <SUBMISSION alias="SUBMISSION-19-06-2024-22:21:02:540"/>
+     <MESSAGES>
+          <ERROR>In project, alias: "ex_study". The object being added already exists in the submission account with accession: "PRJEB76811".</ERROR>
+          <INFO>This submission is a TEST submission and will be discarded within 24 hours</INFO>
+     </MESSAGES>
+     <ACTIONS>ADD</ACTIONS>
+</RECEIPT>

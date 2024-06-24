@@ -2,6 +2,7 @@ from xml.etree import ElementTree
 from qiime2.plugin import SemanticType, TextFileFormat, model, ValidationError
 from ena_uploader.sample import _sampleSetFromListOfDicts
 from ena_uploader.study import _studyFromRawDict
+import xml.etree.ElementTree as ET
 import pandas as pd 
 import csv
 
@@ -65,7 +66,6 @@ class ENAMetadataStudyFormat(model.TextFileFormat):
 
     def _validate(self):
         df_dict = pd.read_csv(str(self), header= None, index_col=0, sep='\t').squeeze("columns").to_dict() 
-        print(df_dict)
         missing_keys = [x for x in self.REQUIRED_ATTRIBUTES if x not in df_dict.keys()]
         if missing_keys:
             raise ValidationError(
@@ -92,16 +92,29 @@ ENAMetadataStudyDirFmt = model.SingleFileDirectoryFormat(
     'ENAMetadataStudyDirFmt','ena_metadata_study.tsv',ENAMetadataStudyFormat
 )
 
-class ENASubmissionReceiptFormat(model.TextFileFormat):
+class ENASubmissionReceiptFormat(model.BinaryFileFormat):
     """
     This class provides a structured format to handle and inspect the receipt details
     following a data upload to the ENA.
     The success attribute indicates whether the submission was successful. 
     The receipt also contains the accession numbers of the submitted objects.
     """
+    
+    @staticmethod
+    def readETfromfile(filename):
+        with open(filename,'r') as file:
+            contents = file.read()
+            return ET.fromstring(contents)
+
+    def _validate(self):
+        try:
+            et = self.readETfromfile(str(self))
+        except ET.ParseError:
+            raise ValidationError("ENA receipt is not a valid xml form.")
+            
 
     def _validate_(self,level):
-        pass
+       return self._validate()
 
 ENASubmissionReceiptDirFmt = model.SingleFileDirectoryFormat(
     'ENASubmissionReceiptDirFmt','ena_submission_receipt.xml',ENASubmissionReceiptFormat

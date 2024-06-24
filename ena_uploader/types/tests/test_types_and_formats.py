@@ -1,5 +1,8 @@
 import unittest
+import qiime2
 import pandas as pd
+import xml.etree.ElementTree as ET
+
 
 from qiime2.plugin import ValidationError
 from qiime2.plugin.testing import TestPluginBase
@@ -88,11 +91,68 @@ class TestFormats(TestPluginBase):
         ):
            format.validate()
     
+    def test_valid_xml_receipt(self):
+        meta_path = self.get_data_path('ena_submission_receipt.xml')
+        format = ENASubmissionReceiptFormat(meta_path, mode = 'r')
+        format.validate()    
 
 
 
 class  TestTransformers(TestPluginBase):
     package = 'ena_uploader.types.tests'
+    
+    def setUp(self):
+        super().setUp()
+        xml_path = self.get_data_path('ena_submission_receipt.xml')
+        self.xml_response = xml_path
+        meta_path1 = self.get_data_path('ena_metadata_samples.tsv')
+        meta_path2 = self.get_data_path('ena_metadata_study.tsv')
+        self.ena_meta_df = pd.read_csv(meta_path1, sep='\t')
+        self.ena_meta_study_df = pd.read_csv(meta_path2, header= None, index_col=0, sep = '\t')
+  
+    def test_str_ena_receipt(self):
+        transformer = self.get_transformer(bytes, ENASubmissionReceiptFormat)
+        obs = transformer(self.xml_response.encode('utf-8'))
+        self.assertIsInstance(obs, ENASubmissionReceiptFormat)
+    
+    def test_ena_samples_metadata_to_df(self):
+        _, obs = self.transform_format(ENAMetadataSamplesFormat,pd.DataFrame,'ena_metadata_samples.tsv')
+        self.assertIsInstance(obs, pd.DataFrame)
+        pd.testing.assert_frame_equal(obs,self.ena_meta_df)
+    
+    def test_ena_study_metadata_to_dict(self):
+        _, obs = self.transform_format(ENAMetadataStudyFormat,dict,'ena_metadata_study.tsv')
+        self.assertIsInstance(obs, dict)
+    
+    def test_ena_samples_meta_to_q2_meta(self):
+        _, obs = self.transform_format(
+            ENAMetadataSamplesFormat, qiime2.Metadata, 'ena_metadata_samples.tsv'
+        )
+        ena_meta_samples = self.ena_meta_df
+        ena_meta_samples = ena_meta_samples.rename(columns={'alias':'id'}).set_index('id')
+        exp = qiime2.Metadata(ena_meta_samples)
+        self.assertEqual(obs, exp)
+    
+    def test_ena_study_meta_to_q2_meta(self):
+        _, obs = self.transform_format(
+            ENAMetadataStudyFormat, qiime2.Metadata, 'ena_metadata_study.tsv'
+        )
+        ena_meta_study = self.ena_meta_study_df
+        ena_meta_study = ena_meta_study.T.rename(columns={'alias':'id'}).set_index('id')
+        exp = qiime2.Metadata(ena_meta_study)
+        self.assertEqual(obs, exp)
+
+
+
+
+
+
+
+
+        
+
+
+
 
 
 
