@@ -8,7 +8,7 @@ setup(
     packages=find_packages(),
     author="Zuzana Sebechlebska",
     author_email="zuzanasebechlebska@gmail.com",
-    description="ENA UPLOADER.",
+    description="ENA UPgit LOADER.",
     url="TBD",
     entry_points={
         'qiime2.plugins': ['ena_uploader=ena_uploader.plugin_setup:plugin']

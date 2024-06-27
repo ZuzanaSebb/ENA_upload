@@ -13,4 +13,3 @@ __all__ = [
      ENASubmissionReceiptFormat,ENASubmissionReceiptDirFmt,ENASubmissionReceipt
 
 ]
-from ._methods import uploadToEna

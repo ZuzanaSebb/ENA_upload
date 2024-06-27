@@ -111,7 +111,14 @@ class ENASubmissionReceiptFormat(model.BinaryFileFormat):
             et = self.readETfromfile(str(self))
         except ET.ParseError:
             raise ValidationError("ENA receipt is not a valid xml form.")
-            
+        receipt_element = et
+        required_att = ['receiptDate', 'submissionFile', 'success']
+        missing_att = [x for x in required_att if x not in receipt_element.attrib ]
+        if missing_att:
+            raise ValidationError(
+                "Xml response is missing values in the following fields: "
+                f'{",".join(missing_att)}.'
+            )
 
     def _validate_(self,level):
        return self._validate()

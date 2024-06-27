@@ -94,7 +94,19 @@ class TestFormats(TestPluginBase):
     def test_valid_xml_receipt(self):
         meta_path = self.get_data_path('ena_submission_receipt.xml')
         format = ENASubmissionReceiptFormat(meta_path, mode = 'r')
-        format.validate()    
+        format.validate()
+
+
+
+    def test_valid_xml_receipt_broken_xml(self):
+        meta_path = self.get_data_path('ena_submission_missing_values.xml')
+        format = ENASubmissionReceiptFormat(meta_path, mode = 'r')
+        with self.assertRaisesRegex(
+            ValidationError,
+            "Xml response is missing values in the following fields: "
+            'receiptDate,submissionFile.'
+        ):
+            format.validate()
 
 
 

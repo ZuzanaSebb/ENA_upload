@@ -51,7 +51,8 @@ plugin.methods.register_function(
             },
     parameters={
             'submission_hold_date': Str,
-            'dev' : Bool
+            'dev' : Bool,
+            'action_type': Str
             },
     outputs=[('submission_receipt', ENASubmissionReceipt)],
     

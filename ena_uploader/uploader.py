@@ -17,7 +17,13 @@ PRODUCTION_SERVER_URL = ' https://www.ebi.ac.uk/ena/submit/drop-box/submit'
 class ActionType(Enum):
     ADD = "ADD"
     MODIFY = "MODIFY"
-    CANCEL = "CANCEL"
+
+def strToActionType(s : str) -> ActionType:
+    if s == 'ADD':
+        return ActionType.ADD
+    elif s == 'MODIFY':
+        return ActionType.MODIFY
+    raise RuntimeError('Unknown action type {}'.format(s))
 
 def _create_submission_xml(action: ActionType, hold_date: str) -> str:
   
@@ -35,9 +41,8 @@ def _create_submission_xml(action: ActionType, hold_date: str) -> str:
 
 def uploadToEna(study: ENAMetadataStudyFormat, 
                 samples: ENAMetadataSamplesFormat,
-                #username: str = None,
-                #password: str = None,
                 submission_hold_date: str = '',
+                action_type: str = 'ADD',
                 dev: bool = True
                 ) -> bytes:
     username = os.getenv('ENA_USERNAME')
@@ -47,7 +52,6 @@ def uploadToEna(study: ENAMetadataStudyFormat,
         raise RuntimeError('Missing username or password, ' +
                            'make sure ENA_USERNAME and ENA_PASSWORD env vars are set')
 
-    print('username = {} password = {}'.format(username, password))
 
     '''
     Function to sumbmit metedata of the study and samples to ENA.
@@ -73,7 +77,7 @@ def uploadToEna(study: ENAMetadataStudyFormat,
     '''
 
     url = DEV_SERVER_URL if dev else PRODUCTION_SERVER_URL
-    xml_content = _create_submission_xml(action = ActionType.ADD, hold_date = submission_hold_date)
+    xml_content = _create_submission_xml(strToActionType(action_type), hold_date = submission_hold_date)
 
     studyXml = study.toXml()
     samplesXml = samples.toXml();
